@@ -163,7 +163,7 @@ def merge_df(df, domain, index, columns):
     else:
         to_merge = df
     if domain == "raw":
-        merged_df = pd.DataFrame(to_merge, index=index, columns=columns).sum(
+        merged_df = pd.DataFrame(to_merge, columns=columns).sum(
             axis=1, level=0, skipna=False
         )
     elif domain == "log1p":
@@ -209,10 +209,7 @@ def fixup_gene_symbols(adata, fixup_config):
             df = adata.raw.X
         else:
             df = adata.layers[layer]
-        if domain == "raw":
-            merged_df = merge_df(df, domain, adata.raw.X.index, upgraded_var_index)
-        else:
-            merged_df = merge_df(df, domain, adata.obs.index, upgraded_var_index)
+        merged_df = merge_df(df, domain, adata.obs.index, upgraded_var_index)
         assert merged_df.index.equals(merged_X.index)
         assert merged_df.columns.equals(merged_X.columns)
 
