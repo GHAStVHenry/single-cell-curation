@@ -209,9 +209,11 @@ def fixup_gene_symbols(adata, fixup_config):
             df = adata.raw.X
         else:
             df = adata.layers[layer]
-
-        merged_df = merge_df(df, domain, adata.obs.index, upgraded_var_index)
-        #assert merged_df.index.equals(merged_X.index)
+        if domain == "raw":
+            merged_df = merge_df(df, domain, adata.raw.X.index, upgraded_var_index)
+        else:
+            merged_df = merge_df(df, domain, adata.obs.index, upgraded_var_index)
+        assert merged_df.index.equals(merged_X.index)
         assert merged_df.columns.equals(merged_X.columns)
 
         if domain == "raw":
