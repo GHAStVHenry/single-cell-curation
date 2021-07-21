@@ -163,7 +163,7 @@ def merge_df(df, domain, index, columns):
     else:
         to_merge = df
     if domain == "raw":
-        merged_df = pd.DataFrame(to_merge, columns=columns).sum(
+        merged_df = pd.DataFrame(to_merge, index=index).sum(
             axis=1, level=0, skipna=False
         )
     elif domain == "log1p":
