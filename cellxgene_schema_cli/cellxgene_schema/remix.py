@@ -217,7 +217,7 @@ def fixup_gene_symbols(adata, fixup_config):
             fixup_raw = anndata.AnnData(
                 X=merged_df,
                 obs=adata.obs,
-                var=merged_X.columns.to_frame(name="hgnc_gene_symbol"),
+                var=merged_df.columns.to_frame(name="hgnc_gene_symbol"),
             )
             fixup_adata.raw = fixup_raw
         else:
